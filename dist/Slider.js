@@ -1,6 +1,6 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define('Greeter', ['module'], factory);
+    define('Slider', ['module'], factory);
   } else if (typeof exports !== "undefined") {
     factory(module);
   } else {
@@ -8,7 +8,7 @@
       exports: {}
     };
     factory(mod);
-    global.Greeter = mod.exports;
+    global.Slider = mod.exports;
   }
 })(this, function (module) {
   'use strict';
@@ -37,30 +37,34 @@
     };
   }();
 
-  var helpers = {
-    trim: function trim(string) {
-      return string.replace(/^\s+|\s+$/gm, '');
-    }
-  };
-
   var index = function () {
-    function index() {
-      var name = arguments.length <= 0 || arguments[0] === undefined ? 'Dear Coder' : arguments[0];
-      var text = arguments.length <= 1 || arguments[1] === undefined ? 'hi there' : arguments[1];
-
+    function index(slider) {
       _classCallCheck(this, index);
 
-      this.name = name;
-      this.text = text;
+      console.log(slider[0].children[0]);
+      this.ul = slider[0].children[0];
+      this.li = this.ul.children;
+      this.ul.style.width = this.li[0].clientWidth * this.li.length + 'px';
+      this.currentIndex = 0;
+      this.goToPrev();
     }
 
     _createClass(index, [{
-      key: 'message',
-      get: function get() {
-        return this.text + ' ' + this.name + '!';
-      },
-      set: function set(text) {
-        this.text = helpers.trim(text);
+      key: 'goTo',
+      value: function goTo(index) {
+        if (index < 0 || index > this.li.length - 1) return;
+        this.ul.style.left = '-' + 100 * index + '%';
+        this.currentIndex = index;
+      }
+    }, {
+      key: 'goToPrev',
+      value: function goToPrev() {
+        this.goTo(this.currentIndex - 1);
+      }
+    }, {
+      key: 'goToNext',
+      value: function goToNext() {
+        this.goTo(this.currentIndex + 1);
       }
     }]);
 

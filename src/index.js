@@ -1,17 +1,32 @@
 import helpers from './helpers/helpers'
 
-/**
- * An awesome script
- */
 export default class {
-  constructor(name = 'Dear Coder', text = 'hi there') {
-    this.name = name
-    this.text = text
+  constructor(slider) {
+    console.log(slider[0].children[0])
+    this.ul = slider[0].children[0]
+    this.li = this.ul.children
+    this.ul.style.width = `${this.li[0].clientWidth * this.li.length}px`
+    this.
+    this.currentIndex = 0
+    this.init()
   }
-  get message() {
-    return `${this.text} ${this.name}!`
+
+  init() {
+    
   }
-  set message(text) {
-    this.text = helpers.trim(text)
+
+  goTo(index) {
+    if (index < 0 || index > this.li.length - 1)
+      return
+    this.ul.style.left = `-${100 * index}%`
+    this.currentIndex = index
+  }
+
+  goToPrev() {
+    this.goTo(this.currentIndex - 1)
+  }
+
+  goToNext() {
+    this.goTo(this.currentIndex + 1)
   }
 }
